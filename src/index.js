@@ -23,14 +23,28 @@ nameDays.forEach((el, ind) => {
 
 let firstDateMonth, firstDayMonth, firstDayMonthTraditional, nameFirstDayMonth;
 let userMonth, userYear;
-let defaultDate = "2022-12";
+
+function getCurrentDate(){
+  let currentDate = new Date();
+  let currentYear = currentDate.getFullYear();
+  let currentMonth = currentDate.getMonth();
+  let currentDay = currentDate.getDate()
+  return [currentYear, currentMonth, currentDay];
+}
+
+function getDefaultMonth(){
+ const[currentYear, currentMonth] = getCurrentDate();
+  return `${currentYear}-${currentMonth + 1}`;
+}
+
+let defaultDate = getDefaultMonth();
+userChoice.value = defaultDate;
 changeData(defaultDate);
 
 function changeData(dataStr) {
   let date = new Date(userChoice.value || dataStr);
   userMonth = date.getMonth();
   userYear = date.getFullYear();
-  console.log("userMonth", userMonth, "userYear", userYear);
   checkYear();
   getData();
   createCalendar();
@@ -72,7 +86,8 @@ function createCalendar() {
   //let restPreviousMonth = 7 - amountDayFirstWeek = 7 - ( 7 - firstDayMonthTraditional + 1) = firstDayMonthTraditional - 1
   let restPreviousMonth = firstDayMonthTraditional - 1;
   let startNextMonth = 42 - amountDaysCurrentMonth - restPreviousMonth;
-
+  const [,,currentDate] = getCurrentDate();
+  console.log("currentDate",currentDate)
   for (let i = 0; i < 42; i += 1) {
     let li = document.createElement("li");
 
@@ -84,8 +99,12 @@ function createCalendar() {
       i >= firstDayMonthTraditional &&
       i < amountDaysCurrentMonth + firstDayMonthTraditional
     ) {
+      
       li.textContent = String(i + 1 - firstDayMonthTraditional).padStart(2, 0);
       li.classList.add("current");
+      if (currentDate + firstDayMonthTraditional - 1 === i) {
+        li.classList.add("current", "current-date");
+      }
     }
     if (i >= amountDaysCurrentMonth + firstDayMonthTraditional) {
       li.textContent = String(i + startNextMonth - 42).padStart(2, 0);

@@ -1,32 +1,40 @@
-.calendar-container{
-  width: 500px;
+.calendar-container {
+  max-width: 500px;
   margin: 0 auto;
 }
-.days{
-  display: flex;
-  gap: 40px;
-}
-li{
-  list-style: none; 
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+  justify-items: center;
 }
 
-.grid-date-container{
+li {
+  list-style: none;
+  display: inline-block;
+}
+
+li.current-date {
+  border: 1px solid #000000;
+  padding:5px;
+}
+.grid-date-container {
   display: grid;
   grid-template-rows: repeat(6, 1fr);
   grid-template-columns: repeat(7, 1fr);
   row-gap: 20px;
   align-items: center;
-  
+  justify-items: center;
 }
 .previous,
-.next{
+.next {
   color: #b1b1b1;
 }
-.user-choice{
- display: block;
-margin-top: 30px;
- margin: 0 auto;
+.user-choice {
+  display: block;
+  margin-top: 30px;
+  margin: 0 auto;
 }
-#select-month{
+#select-month {
   flex-grow: 1;
 }
